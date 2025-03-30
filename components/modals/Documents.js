@@ -8,11 +8,15 @@ import UploadModal from '@/components/modals/UploadModal';
 import DocumentDetailsModal from '@/components/modals/DocumentDetailsModal';
 import { Search, FileText, Upload } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import ViewDocumentModal from '@/components/modals/ViewDocumentModal';
+import { API_URL } from '@/config';
 
 export default function Documents() {
     const [documents, setDocuments] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState("");
+    const [selectedDocument, setSelectedDocument] = useState(null);
+    const [isViewModalOpen, setIsViewModalOpen] = useState(false);
     const { toast } = useToast();
     const router = useRouter();
 
@@ -24,7 +28,7 @@ export default function Documents() {
                 return;
             }
 
-            const response = await fetch("http://localhost:8080/list", {
+            const response = await fetch(`${API_URL}/list`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -77,7 +81,7 @@ export default function Documents() {
     );
 
     return (
-        <div className="ml-64 p-8">
+        <div className="p-8">
             <div className="flex justify-between items-center mb-8">
                 <div className="relative flex-1 max-w-2xl">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
@@ -123,7 +127,10 @@ export default function Documents() {
                                     variant="ghost"
                                     size="sm"
                                     className="text-gray-400 hover:bg-purple-600 hover:text-white"
-                                    onClick={() => window.open(doc.s3_url, '_blank')}
+                                    onClick={() => {
+                                        setSelectedDocument(doc);
+                                        setIsViewModalOpen(true);
+                                    }}
                                 >
                                     <FileText className="h-4 w-4 mr-2" />
                                     View
@@ -133,6 +140,14 @@ export default function Documents() {
                     ))}
                 </div>
             )}
+            <ViewDocumentModal 
+                isOpen={isViewModalOpen}
+                onClose={() => {
+                    setIsViewModalOpen(false);
+                    setSelectedDocument(null);
+                }}
+                document={selectedDocument}
+            />
         </div>
     );
 }

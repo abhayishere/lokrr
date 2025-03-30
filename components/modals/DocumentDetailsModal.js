@@ -17,7 +17,7 @@ export default function DocumentDetailsModal({ document, onDeleteSuccess }) {
         throw new Error("Authentication token not found");
       }
 
-      const response = await fetch(`http://localhost:8080/delete`, {
+      const response = await fetch(`${API_URL}/delete`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

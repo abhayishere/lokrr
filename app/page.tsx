@@ -1,4 +1,5 @@
 "use client";
+import { API_URL } from '@/config';
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -24,7 +25,7 @@ export default function Home() {
     setIsLoading(true);
     setErrorMessage("");
     try {
-      const res = await fetch("http://localhost:8080/login", {
+      const res = await fetch(`${API_URL}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

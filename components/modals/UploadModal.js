@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Upload, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { API_URL } from '@/config';
 
 export default function UploadModal({ onUploadSuccess }) {
   const [isUploading, setIsUploading] = useState(false);
@@ -55,7 +56,7 @@ export default function UploadModal({ onUploadSuccess }) {
         throw new Error("Authentication token not found");
       }
 
-      const response = await fetch("http://localhost:8080/upload", {
+      const response = await fetch(`${API_URL}/upload`, {
         method: "POST",
         headers: {
           'Authorization': `Bearer ${token}`,
