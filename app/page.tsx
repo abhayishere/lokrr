@@ -35,7 +35,6 @@ export default function Home() {
           password:password
         })
       });
-      console.log(res);
       if (!res.ok) {
         throw new Error("Invalid username or password");
       }

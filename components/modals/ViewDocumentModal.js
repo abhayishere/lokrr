@@ -37,7 +37,6 @@ export default function ViewDocumentModal({ isOpen, onClose, document }) {
                 }
 
                 const data = await response.json();
-                console.log('API Response:', data);
 
                 // Handle different file types
                 if (data.document_type.startsWith('image/')) {
