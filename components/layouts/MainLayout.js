@@ -3,11 +3,12 @@
 import { FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname,useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/auth";
 
 export default function MainLayout({ children }) {
     const pathname = usePathname();
+    const router = useRouter();
     const logout = useAuthStore((state) => state.logout);
     
     const handleLogout = () => {
