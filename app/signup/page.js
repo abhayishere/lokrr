@@ -1,5 +1,6 @@
 "use client";
 
+import { API_URL } from '@/config';
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Lock, Mail, User } from "lucide-react";
